@@ -12,3 +12,11 @@
 实现同步的几种方式：
      互斥锁（mutex）、条件变量（condition variable）、读写锁（reader-writer lock）和信号量（semphore）
 
+1.互斥锁（mutex）
+       互斥锁（mutex）是一个特殊的变量，它有两个状态  lock 和 unlock。互斥锁一般被设置成全局变量。pthread_mutex_t mutex_x = PTHREAD_MUTEX_INITIALIZER; 打开的互斥锁
+	可以由某个线程获取。一旦获得，这个互斥锁会锁上，此后只有该线程有权打开，其他线程要想获得互斥锁的线程，会等待再次打开的时候。我们可以将互斥锁想象成只能容纳一个人
+	的卫生间，当某个人进去的时候，可以从卫生间里便将洗手间的门锁上，其他人只能在互斥锁外面等待那个认出来，才能进去。但在外边等待的人没有排队，谁先看到洗手间空了，谁
+	就可以先冲过去。
+	   所以线程在pthread_mutex_lock(pthread_mutex_t *mutex_x) he pthread_mutex_unlock(pthread_mutex_t *mutex_x)之间的操作就构成了原子操作，不会被其他线程影响。
+	   互斥锁的使用过程中，主要有pthread_mutex_init()、pthread_mutex_lock()、pthread_mutex_unlock()、pthread_mutex_destory()几个函数。
+	   
